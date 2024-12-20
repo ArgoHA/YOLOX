@@ -7,9 +7,7 @@ import random
 import cv2
 import numpy as np
 
-__all__ = [
-    "mkdir", "nms", "multiclass_nms", "demo_postprocess", "random_color", "visualize_assign"
-]
+__all__ = ["mkdir", "nms", "multiclass_nms", "demo_postprocess", "random_color", "visualize_assign"]
 
 
 def random_color():
@@ -34,8 +32,7 @@ def visualize_assign(img, boxes, coords, match_results, save_name=None) -> np.nd
             # unmatched boxes are red
             color = (0, 0, 255)
             cv2.putText(
-                img, "unmatched", (int(x1), int(y1) - 5),
-                cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 1
+                img, "unmatched", (int(x1), int(y1) - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 1
             )
         else:
             for coord in assign_coords:
@@ -108,9 +105,7 @@ def multiclass_nms_class_aware(boxes, scores, nms_thr, score_thr):
             keep = nms(valid_boxes, valid_scores, nms_thr)
             if len(keep) > 0:
                 cls_inds = np.ones((len(keep), 1)) * cls_ind
-                dets = np.concatenate(
-                    [valid_boxes[keep], valid_scores[keep, None], cls_inds], 1
-                )
+                dets = np.concatenate([valid_boxes[keep], valid_scores[keep, None], cls_inds], 1)
                 final_dets.append(dets)
     if len(final_dets) == 0:
         return None
